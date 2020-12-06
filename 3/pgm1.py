@@ -23,11 +23,8 @@ class Grille:
 
 def main():
     g = Grille()
-    print(1, 1, g.slope(1, 1))
-    print(1, 3, g.slope(1, 3))
-    print(1, 5, g.slope(1, 5))
-    print(1, 7, g.slope(1, 7))
-    print(2, 1, g.slope(2, 1))
+    print(g.slope(1, 3))
+    print(g.slope(1, 1) * g.slope(1, 3) * g.slope(1, 5) * g.slope(1, 7) * g.slope(2, 1))
 
 if __name__ == '__main__':
     main()
