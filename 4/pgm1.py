@@ -8,26 +8,10 @@ m_ecl = re.compile(r'^(amb|blu|brn|gry|grn|hzl|oth)$')
 m_pid = re.compile(r'^\d{9}$')
 
 with open("input.txt") as f:
-    ll = f.read().splitlines()
-ll = [x.split() for x in ll]
-il = iter(ll)
+    ll = f.read()[0:-1].split("\n\n")
 
-out = []
-d = {}
-while True:
-    try:
-        l = next(il)
-    except StopIteration:
-        out.append(d)
-        break
-
-    if l == []:
-        out.append(d)
-        d = {}
-    else:
-        for e in l:
-            k,v = e.split(":")
-            d[k] = v
+ll = [x.replace("\n", " ").split(" ") for x in ll]
+out = [dict([e.split(":") for e in x]) for x in ll]
 
 n = 0
 for p in out:
