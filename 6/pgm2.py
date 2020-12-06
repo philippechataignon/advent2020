@@ -1,33 +1,8 @@
 #!/usr/bin/env python3
-
 with open("input.txt") as f:
-    ll = f.read().splitlines()
-il = iter(ll)
+    ll = f.read()[0:-1].split("\n\n")
 
-s = set()
-n = 0
-out = []
-first = True
-while True:
-    try:
-        l = next(il)
-    except StopIteration:
-        out.append(s)
-        n += len(s)
-        break
-
-    if l == "":
-        out.append(s)
-        n += len(s)
-        s = set()
-        first = True
-    else:
-        if first:
-            s = set(l)
-            first = False
-        else:
-            s = s.intersection(set(l))
-
-# print(out)
-print(sum([len(x) for x in out]))
-
+ll = [x.split("\n") for x in ll]
+ll = [[set(x) for x in l] for l in ll]
+ll = [x[0].intersection(*x) for x in ll]
+print(sum([len(x) for x in ll]))
