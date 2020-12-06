@@ -10,15 +10,24 @@ class Grille:
     def is_tree(self, r, c):
         return self.gr[r][c % self.size] == "#"
 
+    def slope(self, dr, dc):
+        n = 0
+        for i in range(self.nb):
+            r = dr * i
+            if r >= self.nb:
+                break
+            c = dc * i
+            if self.is_tree(r, c):
+                n += 1
+        return n
+
 def main():
     g = Grille()
-    n = 0
-    for i in range(g.nb):
-        r = i
-        c = 3 * i
-        if g.is_tree(r, c):
-            n += 1
-        print(r, c, n)
+    print(1, 1, g.slope(1, 1))
+    print(1, 3, g.slope(1, 3))
+    print(1, 5, g.slope(1, 5))
+    print(1, 7, g.slope(1, 7))
+    print(2, 1, g.slope(2, 1))
 
 if __name__ == '__main__':
     main()
