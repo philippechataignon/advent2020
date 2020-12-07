@@ -15,10 +15,7 @@ G = nx.DiGraph()
 def value(node):
     adj = G.edges(node, data="weight")
     if adj:
-        sum = 1
-        for n1, n2, w in adj:
-            sum += w * value(n2)
-        return sum
+        return 1 + sum([w * value(n2) for _, n2, w in adj])
     else:
         return 1
 
