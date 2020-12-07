@@ -13,12 +13,11 @@ motif0 = re.compile(r'^(.*) bags contain no other bags\.$')
 G = nx.DiGraph()
 
 def value(node):
-    adj = G.edges(node)
+    adj = G.edges(node, data="weight")
     if adj:
         sum = 1
-        for e in adj:
-            w = G.edges[e]["weight"]
-            sum += w * value(e[1])
+        for n1, n2, w in adj:
+            sum += w * value(n2)
         return sum
     else:
         return 1
