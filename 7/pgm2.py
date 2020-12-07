@@ -35,24 +35,19 @@ if __name__ == "__main__":
             if m4:
                 m = m4[0]
                 for i in range(2, len(m), 2):
-                    G.add_edge(m[0], m[i])
-                    G.edges[m[0], m[i]]["weight"] = int(m[i-1])
+                    G.add_edge(m[0], m[i], weight=int(m[i-1]))
             elif m3:
                 m = m3[0]
                 for i in range(2, len(m), 2):
-                    G.add_edge(m[0], m[i])
-                    G.edges[m[0], m[i]]["weight"] = int(m[i-1])
+                    G.add_edge(m[0], m[i], weight=int(m[i-1]))
             elif m2:
                 m = m2[0]
                 for i in range(2, len(m), 2):
-                    G.add_edge(m[0], m[i])
-                    G.edges[m[0], m[i]]["weight"] = int(m[i-1])
+                    G.add_edge(m[0], m[i], weight=int(m[i-1]))
             elif m1:
                 m = m1[0]
-                G.add_edge(m[0], m[2])
-                G.edges[m[0], m[2]]["weight"] = int(m[1])
+                G.add_edge(m[0], m[2], weight=int(m[1]))
             elif m0:
                 G.add_node(m0[0])
-
 
     print(value("shiny gold") - 1)
