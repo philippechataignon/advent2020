@@ -31,16 +31,20 @@ def main():
     for i in range(len(pgm)):
         cmd, val = pgm[i]
         val = int(val)
+        change = False
         if cmd == "jmp":
             l = pgm.copy()
             l[i] = ["nop", val]
+            change = True
         elif cmd == "nop":
             l = pgm.copy()
             l[i] = ["jmp", val]
-        e = execute(l)
-        if e[0]:
-            print(e[1])
-            break
+            change = True
+        if change:
+            e = execute(l)
+            if e[0]:
+                print(e[1])
+                break
 
 if __name__ == '__main__':
     main()
