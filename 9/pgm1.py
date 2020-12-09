@@ -20,8 +20,27 @@ def main():
         if l not in p:
             break
         d.append(l)
+    t = l
+    print(t)
 
-    print(l)
+    ll = [int(x.strip()) for x in open("input.txt").readlines()]
+
+    found = False
+    for i in range(2, len(ll)):
+        l = ll.copy()
+        d = deque(maxlen=i)
+        for j in range(i-1):
+            d.append(l.pop(0))
+        while l:
+            if sum(d) == t:
+                found = True
+                break
+            d.append(l.pop(0))
+        if found:
+            break
+
+    if found:
+        print(min(d) + max(d))
 
 if __name__ == '__main__':
     main()
