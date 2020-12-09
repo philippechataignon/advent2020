@@ -2,17 +2,14 @@
 from collections import deque
 
 def main():
-    d = deque(maxlen=25)
-    f = open("input.txt")
+    ll = [int(x.strip()) for x in open("input.txt").readlines()]
+    f = ll.copy()
 
-    for i in range(25):
-        ll = f.readline()
-        l = int(ll.strip())
-        d.append(l)
+    d = deque(f[:25], maxlen=25)
+    f = f[25:]
 
     while True:
-        ll = f.readline()
-        l = int(ll.strip())
+        l = f.pop(0)
         p = set()
         for d1 in list(d)[:-1]:
             for d2 in list(d)[1:]:
@@ -23,14 +20,11 @@ def main():
     t = l
     print(t)
 
-    ll = [int(x.strip()) for x in open("input.txt").readlines()]
-
     found = False
     for i in range(2, len(ll)):
         l = ll.copy()
-        d = deque(maxlen=i)
-        for j in range(i-1):
-            d.append(l.pop(0))
+        d = deque(l[:i], maxlen=i)
+        l = l[i:]
         while l:
             if sum(d) == t:
                 found = True
