@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-from copy import deepcopy
+import copy
 
 class Grille:
     def __init__(self, gr=None):
         if gr is None:
-            self.gr = [list(x.strip()) for x in open("test.txt").readlines()]
+            self.gr = [list(x.strip()) for x in open("input.txt").readlines()]
         else:
             self.gr = gr
         self.ncol = len(self.gr[0])
@@ -17,8 +17,10 @@ class Grille:
             ret = "."
         return ret
 
-    def grille(self):
-        return self.gr
+    def __repr__(self):
+        return "\n".join(["".join(x) for x in self.gr])
+
+    __str__ = __repr__
 
     def voisin(self, r, c, char):
         return \
@@ -31,12 +33,19 @@ class Grille:
             int(self.case(r+1, c) == char) + \
             int(self.case(r+1, c+1) == char)
 
+    def count(self, char):
+        n = 0
+        for r in range(self.nrow):
+            for c in range(self.ncol):
+                if self.case(r, c) == char:
+                    n += 1
+        return n
+
     def gen(self):
-        new_gr = deepcopy(self.gr)
+        new_gr = copy.deepcopy(self.gr)
         for r in range(self.nrow):
             for c in range(self.ncol):
                 v = self.voisin(r, c, "#")
-                print(r,c,v)
                 if self.case(r, c) == "L" and v == 0:
                     new_gr[r][c] = "#"
                 elif self.case(r, c) == "#" and v >= 4:
@@ -45,4 +54,11 @@ class Grille:
 
 if __name__ == '__main__':
     g = Grille()
-    print(g.gen())
+    first = True
+    while True:
+        g = Grille(g.gen())
+        if not first and repr(g) == repr(prevg):
+            break
+        prevg = g
+        first = False
+    print(g.count("#"))
