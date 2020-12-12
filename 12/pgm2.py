@@ -13,16 +13,23 @@ class Way(Navig):
             self.x += Navig.dirs[cmd][0] * nb
             self.y += Navig.dirs[cmd][1] * nb
         elif cmd == "L":
-            self.turn(nb)
+            if nb == 90:
+                self.turn(1)
+            elif nb == 180:
+                self.turn(2)
+            elif nb == 270:
+                self.turn(3)
         elif cmd == "R":
-            self.turn(-nb)
+            if nb == 90:
+                self.turn(3)
+            elif nb == 180:
+                self.turn(2)
+            elif nb == 270:
+                self.turn(1)
 
     def turn(self, nb):
-        self.cap += nb
-        if self.cap < 0:
-            self.cap += 360
-        if self.cap >= 360:
-            self.cap -= 360
+        for i in range(nb):
+            self.x, self.y = -self.y, self.x
 
 class Boat(Navig):
     def forward(self, way, nb):
@@ -30,7 +37,7 @@ class Boat(Navig):
         self.y += nb * way.y
 
 def main():
-    ll = [(x[0], int(x[1:].strip())) for x in open("test.txt").readlines()]
+    ll = [(x[0], int(x[1:].strip())) for x in open("input.txt").readlines()]
     way = Way(10, 1)
     boat = Boat(0, 0)
     for cmd, nb in ll:
