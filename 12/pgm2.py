@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 class Navig:
     dirs = {"E":(1,0), "S":(0, -1), "W": (-1, 0), "N": (0, 1)}
-    caps = {0:"E", 270:"S", 180:"W", 90:"N"}
     def __init__(self, x=0, y=0):
         self.x = x
         self.y = y
-        self.cap = 0
 
 class Way(Navig):
     def path(self, cmd, nb):
@@ -41,15 +39,11 @@ def main():
     way = Way(10, 1)
     boat = Boat(0, 0)
     for cmd, nb in ll:
-        print(">", cmd, nb)
         if cmd == "F":
             boat.forward(way, nb)
         else:
             way.path(cmd, nb)
-        print("B", boat.x, boat.y)
-        print("w", way.x, way.y)
-
-    print("Fin:", boat.x, boat.y, abs(boat.x) + abs(boat.y))
+    print(boat.x, boat.y, abs(boat.x) + abs(boat.y))
 
 if __name__ == '__main__':
     main()
