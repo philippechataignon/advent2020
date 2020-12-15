@@ -15,9 +15,3 @@ for i in range(2020 - len(l)):
     v = n
 
 print(l[-1])
-
-
-
-
-
-
