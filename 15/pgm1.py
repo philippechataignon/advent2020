@@ -17,5 +17,7 @@ for i in range(30_000_000 - len(l)):
     # print(n, d)
     lv = v
     v = n
+    if i % 100000 == 0:
+        print(i // 100000)
 
 print(lv)
