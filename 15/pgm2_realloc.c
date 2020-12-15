@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <assert.h>
 
 int main(int argc, char* argv[]) {
     int* l;
     int N = 30000000;
+    int maxl = 1 << 16;
     //int N = 2020;
 
-    l = malloc(N * sizeof(int));
-    for (int i = 0; i < N; i++) {
+    l = malloc(maxl * sizeof(int));
+    for (int i = 0; i < maxl; i++) {
         l[i] = -1;
     }
 
@@ -23,6 +25,15 @@ int main(int argc, char* argv[]) {
 
     int v = 0;
     for (int i = len_init; i < N; i++) {
+        if (v > maxl) {
+            maxl *= 2;
+            printf("realloc %d\n", maxl);
+            l = realloc(l, maxl * sizeof(int));
+            assert(l != NULL);
+            for (int i = maxl / 2; i < maxl; i++) {
+                l[i] = -1;
+            }
+        }
         int m = l[v];
         int n = 0;
         if (m >= 0) {
