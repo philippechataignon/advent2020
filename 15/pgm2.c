@@ -2,41 +2,41 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-int rfind(int* array, int narray, int value) {
-    int ret = -1;
-    for(int i = 0; i < narray; i++) {
-        if (array[narray - 1 - i] == value) {
-            ret = i + 1;
-            break;
-        }
-    }
-    return ret;
-}
-
 int main(int argc, char* argv[]) {
     int* l;
-    l = calloc(30000000, sizeof(int));
-    l[0] = 1;
-    l[1] = 0;
-    l[2] = 18;
-    l[3] = 10;
-    l[4] = 19;
-    l[5] = 6;
-    int len_l = 6;
-    int k = len_l;
-    int v = 0;
+    int N = 30000000;
+    //int N = 2020;
 
-    for (int i = 0; i < 30000000 - len_l; i++) {
-        int ret = rfind(l, k, v);
-        int n = 0;
-        if (ret >= 0) {
-            n = ret;
-        }
-        l[k++] = v;
-        v = n;
+    l = calloc(N, sizeof(int));
+    for (int i = 0; i < N; i++) {
+        l[i] = -1;
     }
-    k--;
-    //for(int i=2010; i<2025; i++)
-    //    printf("%d %d\n", i, l[i]);
-    printf("%d %d\n", l[k], k);
+
+    //int init[] = {0, 3, 6};
+    int init[] = {1,0,18,10,19,6};
+
+    int len_init = sizeof(init) / sizeof(int);
+
+    for (int i=0; i < len_init; i++) {
+        l[init[i]] = i;
+    }
+
+    int v = 0;
+    int lv = 0;
+
+    for (int i = len_init; i < N; i++) {
+        int m = l[v];
+        int n = 0;
+        if (m >= 0) {
+            n = i - m;
+        } else {
+            n = 0;
+        }
+        l[v] = i;
+        lv = v;
+        v = n;
+        if (i == 2020 - 1)
+            printf(">>> %d\n", lv);
+    }
+    printf(">>> %d\n", lv);
 }
