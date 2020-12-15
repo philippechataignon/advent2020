@@ -1,23 +1,27 @@
 #!/usr/bin/env python3
+import numpy as np
 
-rindex = lambda l, item: l[::-1].index(item) + 1
+N = 30_000_000
+# N = 2020
+d = np.zeros(N, np.int32)
 
 l = [1,0,18,10,19,6]
-# l = [0, 3, 6]
+# l = [0, 3, 6]
+for i, v in enumerate(l):
+    d[v] = len(l) - i
+print(d[:9])
+
 v = 0
-d = {v:len(l) - i for i, v in enumerate(l)}
-print(d)
-for i in range(30_000_000 - len(l)):
-    if v in d:
-        n = d[v]
-    else:
-        n = 0
+s = set(l)
+
+for i in range(N - len(l)):
+    n = d[v]
     d[v] = 0
-    d = {k: v+1 for k,v in d.items()}
-    # print(n, d)
+    s.add(v)
+    d[list(s)] += 1
     lv = v
     v = n
-    if i % 100000 == 0:
-        print(i // 100000)
-
+    # print(i, v, n)
+    if i % 10000 == 0:
+        print(i // 10000)
 print(lv)
