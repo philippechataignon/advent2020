@@ -22,8 +22,6 @@ int main(int argc, char* argv[]) {
     }
 
     int v = 0;
-    int lv = 0;
-
     for (int i = len_init; i < N; i++) {
         int m = l[v];
         int n = 0;
@@ -33,10 +31,11 @@ int main(int argc, char* argv[]) {
             n = 0;
         }
         l[v] = i;
-        lv = v;
-        v = n;
         if (i == 2020 - 1)
-            printf(">>> %d\n", lv);
+            printf(">>> %d\n", v);
+        if (i == N - 1)
+            break;
+        v = n;
     }
-    printf(">>> %d\n", lv);
+    printf(">>> %d\n", v);
 }
